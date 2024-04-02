@@ -1,0 +1,136 @@
+﻿Elbonian NUTS
+
+
+The country of Elbonia has two competing airlines, currently in a merger.
+
+
+Elbonia East (EE) flew to many cities.
+
+
+Elbonia West (EW) flew to many cities.
+
+
+Elbonia East bought Elbonia West and will rename the now bigger company New Universal Transport System (NUTS).
+
+
+You are given adjacency matrices for EE (ee.json) and EW (ew.json). 
+
+
+1. Before the merger, what are all the flights where the first hop is on EE and the second hop is on EW? Submit ee1ew1.json.
+2. Before the merger, what are all the flights where the first hop is on EW and the second hop is on EE? Submit ew1ee1.json.
+3. What are the redundant flights that will be cut to save costs? Submit nutsRedundacies.json.
+4. Assuming redundant flights were cut, what is the adjacency matrix for NUTS? Submit nuts1.json. (1 hop, aka non-stop)
+5. Airlines and their customers love it when travel is 2 or less hops. Submit nuts2.json and nuts2orLess.json. 
+6. They try hard to get you from any city to any city in 3 hops. Submit nuts3.json and nuts3orLess.json.
+7. Barely acceptable as the worst case is 4 hops. Submit nuts4.json and nuts4orLess.
+8. What are all the connected cities, regardless of how many hops? Submit nutsT.json.
+
+
+The matrices are too big to do by hand (and keep your sanity). Therefore, in the language of your choice on repl.it, write the following functions and use them to answer all the questions above.
+
+
+Write readJson that takes a filename (string) and returns a matrix (usually an array of arrays of integers).
+
+
+Write writeJson that takes a matrix and a filename and writes the matrix into the json file.
+
+
+Write matrixUnion that takes two matrices and returns the union matrix.
+
+
+Write matrixIntersect that takes two matrices and returns the intersection matrix.
+
+
+Write matrixCompose that takes two matrices and returns the composition matrix.
+
+
+Write matrixSquare that takes a matrix and returns matrix2.
+
+
+Write matrixTrans that takes a matrix and returns the transitive closure matrix (also called the reachability matrix).
+
+
+If you're very clever, you'll use some of the functions to help write some other functions.
+
+
+Submission
+11 json files
+
+
+Scoring
+5 pts each for 11 jsons (55 total)
+
+
+FAQ
+Q1. Why is there no flight to one of the cities?
+A1. La Chapelle du Mont du Chat is the capital city of Elbonia. It has the LLCC international airport. Both EE and EW had flights to LLCC until August last year, when they had a muta impetum scare. In response, the legislature passed the safety law muta lege prohibiting all flights to LLCC.
+
+
+Q2. Where are the city names?
+A2. You are right. The rows and columns have city name labels. To reduce your load, I took out the labels. You can concentrate exclusively on the pure matrices. If you're really curious, you can read the city names at the end of this doc.
+
+
+Q3. Can you give us another format instead of JSON? I don't do JavaScript.
+A3. No. JSON replaced XML as the universal text data format. What I asked for is not exotic. You must know how to read and write JSON files in whatever language. If the language lacks a native way to interact with json, feel free to use a library, package, module, crate, gem, whatzit, ... 
+
+
+Q4. Can I use matrix operations I find in a library?
+A4. No. You must write them yourself so you understand how they work. A very common mistake from using a library is using the wrong function. For example, these are boolean matrices. A sure sign of doing it wrong is to get a number like 2 in your matrix.
+
+
+Q5. Can I rename your functions? Can I add parameter(s)?
+A5. Sure. Do what you need to. Your code must produce the answers in json files. The grader can compare your json files against the key json files. They should be equal.
+
+
+Q6. Can I rename the json files?
+A6. Absolutely not. The grader is expecting exactly ee1ew1.json, not 1hopFromEEthen1hopFromEW.json.
+
+
+Q7. Why didn't I get credit even though I used your json names?
+A7. Case matters. EE1EW1.json is wrong. Ee1ew1.json is wrong. ee1ew1.json is right. 
+
+
+Q8. I'm not sure if my json files have the correct answer. Can you give us a test case?
+A8. The book and the videos have small test cases. Use them.
+
+
+Q9. I'm totally overwhelmed. Where do I begin?
+A9. Do the the simplest ones first. 
+* readJson
+* writeJson
+Once they are working, go on to 
+* matrixUnion
+* matrixIntersect
+
+
+Which questions can you answer with those 4 functions?
+
+
+City Names 
+In order of matching row/col positions in ee.json and ew.json (and in all the json files you make).
+1. La Chapelle du Mont du Chat
+2. Zleginia
+3. Striland
+4. Uglidrith
+5. Feport
+6. Griford
+7. Seim
+8. Uheim
+9. Krouis
+10. Ardby
+11. Orabus
+12. Grenmouth
+13. Ufeudale
+14. Qreset
+15. Paton
+16. Vriridge
+17. Ashido
+18. Ivrathe
+19. Frada
+20. Iriehull
+21. Oniwood
+22. Straaxburn
+23. Qridsall
+24. Blocaster
+25. Chiesa
+26. Barfoo
