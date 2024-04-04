@@ -77,10 +77,6 @@ impl SquareMatrix {
         SquareMatrix { size: matrix_size, data: data }
     }
 
-    // pub fn set(&self, index: (usize, usize), val: u8) -> SquareMatrix {
-        
-    // }
-
     pub fn as_set(&self) -> HashSet<(usize, usize)> {
         let mut res: HashSet<(usize, usize)> = HashSet::new();
 
@@ -104,8 +100,16 @@ impl SquareMatrix {
         SquareMatrix::from_set(union, self.size)
     }
 
-}
+    pub fn intersect(&self, m: &SquareMatrix) -> SquareMatrix {
+        let s1 = self.as_set();
+        let s2 = m.as_set();
 
+        let intersection: HashSet<(usize, usize)> = s1.intersection(&s2).cloned().collect();
+
+        SquareMatrix::from_set(intersection, self.size)
+    }
+
+}
 
 #[cfg(test)]
 mod tests {
@@ -178,11 +182,35 @@ mod tests {
 
         assert_eq!(result, expected);
     }
-}
 
-// fn matrix_union(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
-//     todo!()
-// }
+    #[test]
+    fn test_intersect() {
+        let m = SquareMatrix::from_vec(vec![
+            vec![0,0,1],
+            vec![0,1,0],
+            vec![1,0,1],
+        ]);
+
+        let n = SquareMatrix::from_vec(vec![
+            vec![1,0,0],
+            vec![0,0,0],
+            vec![1,0,1],
+        ]);
+
+        let expected = SquareMatrix::from_vec(vec![
+            vec![0,0,0],
+            vec![0,0,0],
+            vec![1,0,1],
+        ]);
+
+        let result = m.intersect(&n);
+
+        assert_eq!(result, expected);
+    }
+
+
+
+}
 
 // fn matrix_intersect(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
 //     todo!()
