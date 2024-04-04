@@ -174,10 +174,9 @@ mod tests {
             vec![1,0,1],
         ]);
 
-        //let result = m.union(&n);
+        let result = m.union(&n);
 
-        //assert_eq!(result, expected);
-        assert_eq!(1, 1);
+        assert_eq!(result, expected);
     }
 }
 
