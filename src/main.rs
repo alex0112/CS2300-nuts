@@ -1,15 +1,14 @@
-// use serde::{Deserialize, Serialize};
-// use serde::de::{self, Deserialize, Deserializer, Visitor, SeqAccess, MapAccess};
 use serde_json;
 use std::fs::File;
 use std::io::BufReader;
 use std::error::Error;
+use std::collections::HashSet;
 
 fn main() {
-    let path = "./ew.json";
+    // let path = "./ew.json";
 
-    let m = SquareMatrix::from_file(path);
-    dbg!(m);
+    // let m = SquareMatrix::from_file(path);
+    // dbg!(m);
     
 }
 
@@ -31,13 +30,49 @@ impl SquareMatrix {
         Ok(matrix)
     }
 
-    fn from_vec(data: Vec<Vec<u8>>) -> SquareMatrix {
+    pub fn from_vec(data: Vec<Vec<u8>>) -> SquareMatrix {
         SquareMatrix {
             size: data.len() as usize,
             data: data
         }
     }
+
+    pub fn as_set(&self) -> HashSet<(usize, usize)> {
+        let mut res: HashSet<(usize, usize)> = HashSet::new();
+
+        for i in 0..(self.size)as usize {
+            for j in 0..(self.size) as usize {
+                if self.data[i][j] == 1 {
+                    dbg!("equal!");
+                    res.insert((i,j));
+
+                }
+            }
+        }
+
+        res
+    }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_as_set() {
+        let m = SquareMatrix::from_vec(vec![
+            vec![0,0,1],
+            vec![0,1,0],
+            vec![1,0,1],
+        ]);
+
+        let expected: HashSet<(usize, usize)> = HashSet::from([(0,2), (1,1), (2,0), (2,2)]);
+        assert_eq!(m.as_set(), expected);
+    }
+}
+
+
 
 // fn matrix_union(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
 //     todo!()
