@@ -14,46 +14,46 @@ fn main() {
 
     // 1. Before the merger, what are all the flights where the first hop is on EE and the second hop is on EW? Submit ee1ew1.json.
     let ee1ew1 = ee.compose(&ew);
-    ee1ew1.to_file("./ee1ew1.json");
+    ee1ew1.to_file("./deliverables/ee1ew1.json");
 
     // 2. Before the merger, what are all the flights where the first hop is on EW and the second hop is on EE? Submit ew1ee1.json.
     let ew1ee1 = ew.compose(&ee);
-    ew1ee1.to_file("./ew1ee1.json");
+    ew1ee1.to_file("./deliverables/ew1ee1.json");
 
     // 3. What are the redundant flights that will be cut to save costs? Submit nutsRedundacies.json.
     let nuts_red = ee.intersect(&ew);
-    nuts_red.to_file("./nutsRedundacies.json"); // accounting for typo
-    nuts_red.to_file("./nutsRedundancies.json"); // accounting for typo
+    nuts_red.to_file("./deliverables/nutsRedundacies.json"); // accounting for typo
+    nuts_red.to_file("./deliverables/nutsRedundancies.json"); // accounting for typo
 
     // 4. Assuming redundant flights were cut, what is the adjacency matrix for NUTS? Submit nuts1.json. (1 hop, aka non-stop)
 
     let nuts1 = ee.union(&ew);
-    nuts1.to_file("./nuts1.json");
+    nuts1.to_file("./deliverables/nuts1.json");
 
     // 5. Airlines and their customers love it when travel is 2 or less hops. Submit nuts2.json and nuts2orLess.json.
     let nuts2 = nuts1.compose(&nuts1);
     let nuts2orless = nuts2.union(&nuts1);
 
-    nuts2.to_file("./nuts2.json");
-    nuts2orless.to_file("./nuts2orless.json");
+    nuts2.to_file("./deliverables/nuts2.json");
+    nuts2orless.to_file("./deliverables/nuts2orless.json");
 
     // 6. They try hard to get you from any city to any city in 3 hops. Submit nuts3.json and nuts3orLess.json.
     let nuts3 = nuts2.compose(&nuts2);
     let nuts3orless = nuts3.union(&nuts2);
 
-    nuts3.to_file("./nuts3.json");
-    nuts3orless.to_file("./nuts3orless.json");
+    nuts3.to_file("./deliverables/nuts3.json");
+    nuts3orless.to_file("./deliverables/nuts3orless.json");
 
     // 7. Barely acceptable as the worst case is 4 hops. Submit nuts4.json and nuts4orLess.
     let nuts4 = nuts3.compose(&nuts3);
     let nuts4orless = nuts4.union(&nuts3);
 
-    nuts4.to_file("./nuts4.json");
-    nuts4orless.to_file("./nuts4orless.json");
+    nuts4.to_file("./deliverables/nuts4.json");
+    nuts4orless.to_file("./deliverables/nuts4orless.json");
 
     // 8. What are all the connected cities, regardless of how many hops? Submit nutsT.json.
     let nuts_t = nuts1.trans_clos();
-    nuts_t.to_file("./nutsT.json");
+    nuts_t.to_file("./deliverables/nutsT.json");
 }
 
 #[derive(Debug, PartialEq, Clone)]
