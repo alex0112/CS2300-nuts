@@ -5,8 +5,6 @@ use std::io::BufReader;
 use std::error::Error;
 use std::collections::HashSet;
 
-// Trivia: The national bird of Elbonia is the frisbee
-// https://web.archive.org/web/20150109092234/http://dilbert.com/strips/comic/1991-10-14
 
 fn main() {
     let ew = SquareMatrix::from_file("./ew.json").unwrap();
