@@ -28,7 +28,7 @@ fn main() {
     // 4. Assuming redundant flights were cut, what is the adjacency matrix for NUTS? Submit nuts1.json. (1 hop, aka non-stop)
 
     let nuts1 = ee.union(&ew);
-    nuts1.to_file("./nuts1.json.json");
+    nuts1.to_file("./nuts1.json");
 
     // 5. Airlines and their customers love it when travel is 2 or less hops. Submit nuts2.json and nuts2orLess.json.
     let nuts2 = nuts1.compose(&nuts1);
