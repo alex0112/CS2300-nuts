@@ -1,6 +1,6 @@
 ## NUTS
 
-#### Nuts project for CS2300 Spring 2024 by Alex Larsen*
+#### Nuts project for CS2300 Spring 2024 by Alex Larsen
 
 - All produced files are in the `deliverables/` directory
 - Source and unit tests (sanity only) can be found in `src/main.rs`
