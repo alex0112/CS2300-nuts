@@ -328,16 +328,6 @@ mod tests {
             vec![1,0,1],
         ]);
 
-        dbg!(m.trans_clos());
+        dbg!(m.trans_clos()); // TODO needs an assert
     }
-
-
 }
-
-// fn matrix_square(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
-//     todo!()
-// }
-
-// fn matrix_trans(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
-//     todo!()
-// }
