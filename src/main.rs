@@ -9,7 +9,6 @@ fn main() {
 
     // let m = SquareMatrix::from_file(path);
     // dbg!(m);
-    
 }
 
 #[derive(Debug, PartialEq)]
@@ -109,6 +108,31 @@ impl SquareMatrix {
         SquareMatrix::from_set(intersection, self.size)
     }
 
+    pub fn compose(&self, m: &SquareMatrix) -> SquareMatrix {
+        // remember that matrix composition is m(self) not self(m)
+        // So read m.compose(n) as m composed of n, meaning that we start at
+        // n and then move to the graph represented by m
+
+        let s_l: HashSet<(usize, usize)> = self.as_set(); // left hand side
+        let s_r: HashSet<(usize, usize)> = m.as_set(); // right hand side
+
+        
+
+        let mut composed: HashSet<(usize, usize)> = HashSet::new();
+
+        for m in s_r {
+            let (x, y) = m;
+
+            for n in &s_l {
+                let (a, b) = n;
+                if y == *a {
+                    composed.insert((x, *b));
+                }
+            }
+        }
+
+        SquareMatrix::from_set(composed, self.size)
+    }
 }
 
 #[cfg(test)]
@@ -208,13 +232,35 @@ mod tests {
         assert_eq!(result, expected);
     }
 
+    #[test]
+    fn test_compose() {
+        let m = SquareMatrix::from_vec(vec![
+            vec![0,0,1],
+            vec![0,1,0],
+            vec![1,0,1],
+        ]);
+
+        let n = SquareMatrix::from_vec(vec![
+            vec![1,0,0],
+            vec![0,0,0],
+            vec![1,0,1],
+        ]);
+
+        let expected = SquareMatrix::from_vec(vec![
+            vec![0,0,1],
+            vec![0,0,0],
+            vec![1,0,1],
+        ]);
+
+        let result = m.compose(&n);
+
+        assert_eq!(result, expected);
+    }
+
+
 
 
 }
-
-// fn matrix_intersect(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
-//     todo!()
-// }
 
 // fn matrix_compose(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
 //     todo!()
