@@ -9,12 +9,8 @@ use std::collections::HashSet;
 // https://web.archive.org/web/20150109092234/http://dilbert.com/strips/comic/1991-10-14
 
 fn main() {
-    let ew_path = "./ew.json";
     let ew = SquareMatrix::from_file("./ew.json").unwrap();
-
-    let ee_path = "./ee.json";
     let ee = SquareMatrix::from_file("./ee.json").unwrap();
-
 
     // 1. Before the merger, what are all the flights where the first hop is on EE and the second hop is on EW? Submit ee1ew1.json.
     let ee1ew1 = ee.compose(&ew);
@@ -22,7 +18,7 @@ fn main() {
 
     // 2. Before the merger, what are all the flights where the first hop is on EW and the second hop is on EE? Submit ew1ee1.json.
     let ew1ee1 = ew.compose(&ee);
-    ee1ew1.to_file("./ew1ee1.json");
+    ew1ee1.to_file("./ew1ee1.json");
 
     // 3. What are the redundant flights that will be cut to save costs? Submit nutsRedundacies.json.
     let nuts_red = ee.intersect(&ew);
@@ -56,8 +52,8 @@ fn main() {
     nuts4orless.to_file("./nuts4orless.json");
 
     // 8. What are all the connected cities, regardless of how many hops? Submit nutsT.json.
-    let nutsT = nuts1.trans_clos();
-    nutsT.to_file("./nutsT.json");
+    let nuts_t = nuts1.trans_clos();
+    nuts_t.to_file("./nutsT.json");
 }
 
 #[derive(Debug, PartialEq, Clone)]
