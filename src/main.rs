@@ -1,17 +1,23 @@
 use serde_json;
 use std::fs::File;
+use std::io::Write;
 use std::io::BufReader;
 use std::error::Error;
 use std::collections::HashSet;
 
 fn main() {
-    // let path = "./ew.json";
+    let ew_path = "./ew.json";
+    let ew = SquareMatrix::from_file("./ew.json");
 
-    // let m = SquareMatrix::from_file(path);
-    // dbg!(m);
+    let ee_path = "./ee.json";
+    let ee = SquareMatrix::from_file("./ee.json");
+
+    
+
+    
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 struct SquareMatrix {
     size: usize,
     data: Vec<Vec<u8>>
@@ -19,7 +25,7 @@ struct SquareMatrix {
 
 impl SquareMatrix {
 
-    /// Make a new matrix of nxn dimensions of all zeros
+    /// Make a new matrix of nxn dimensions with all zeros
     pub fn new(size: usize) -> SquareMatrix {
         let mut data: Vec<Vec<u8>> = vec![];
 
@@ -47,6 +53,14 @@ impl SquareMatrix {
         let matrix: SquareMatrix = SquareMatrix::from_vec(raw);
 
         Ok(matrix)
+    }
+
+    pub fn to_file(&self, path: &str) {
+        let json_string = serde_json::to_string(&self.data).unwrap();
+        let mut file = File::create(path).unwrap();
+        file.write_all(json_string.as_bytes()).unwrap();
+
+        println!("Wrote {path}");
     }
 
     pub fn from_vec(data: Vec<Vec<u8>>) -> SquareMatrix {
@@ -116,8 +130,6 @@ impl SquareMatrix {
         let s_l: HashSet<(usize, usize)> = self.as_set(); // left hand side
         let s_r: HashSet<(usize, usize)> = m.as_set(); // right hand side
 
-        
-
         let mut composed: HashSet<(usize, usize)> = HashSet::new();
 
         for m in s_r {
@@ -132,6 +144,18 @@ impl SquareMatrix {
         }
 
         SquareMatrix::from_set(composed, self.size)
+    }
+
+    fn trans_clos_rec(m: SquareMatrix, prev: SquareMatrix, original: &SquareMatrix) -> SquareMatrix {
+        if m == prev { m }
+        else {
+            let next = m.compose(&original);
+            m.union(&Self::trans_clos_rec(next, m.clone(), original))
+        }
+    }
+
+    pub fn trans_clos(&self) -> SquareMatrix {
+        self.union(&Self::trans_clos_rec(self.clone(), self.clone(), self))
     }
 }
 
@@ -257,14 +281,19 @@ mod tests {
         assert_eq!(result, expected);
     }
 
+    #[test]
+    fn test_trans_clos() {
+        let m = SquareMatrix::from_vec(vec![
+            vec![0,0,1],
+            vec![0,1,0],
+            vec![1,0,1],
+        ]);
 
+        dbg!(m.trans_clos());
+    }
 
 
 }
-
-// fn matrix_compose(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
-//     todo!()
-// }
 
 // fn matrix_square(m: SquareMatrix, n: SquareMatrix) -> SquareMatrix {
 //     todo!()
