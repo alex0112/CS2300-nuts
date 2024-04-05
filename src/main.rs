@@ -60,7 +60,6 @@ fn main() {
     nutsT.to_file("./nutsT.json");
 }
 
-
 #[derive(Debug, PartialEq, Clone)]
 struct SquareMatrix {
     size: usize,
